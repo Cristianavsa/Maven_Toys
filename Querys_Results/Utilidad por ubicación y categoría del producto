@@ -1,0 +1,21 @@
+"store_location","product_category","total_sale","total_cost","total_profit","ranking"
+"Airport","Electronics",236496.53,128299.53,108197.00,1
+"Airport","Toys",415754.96,327504.96,88250.00,2
+"Airport","Games",240004.10,159236.10,80768.00,3
+"Airport","Art & Crafts",209363.67,147922.67,61441.00,4
+"Airport","Sports & Outdoors",188103.32,148710.32,39393.00,5
+"Commercial","Electronics",634885.42,347311.42,287574.00,1
+"Commercial","Toys",1081318.82,856284.82,225034.00,2
+"Commercial","Art & Crafts",591698.53,436237.53,155461.00,3
+"Commercial","Games",478165.07,331869.07,146296.00,4
+"Commercial","Sports & Outdoors",493071.68,380572.68,112499.00,5
+"Downtown","Toys",2946755.19,2316726.19,630029.00,1
+"Downtown","Electronics",1149769.01,647279.01,502490.00,2
+"Downtown","Art & Crafts",1604073.67,1159753.67,444320.00,3
+"Downtown","Games",1275828.25,897407.25,378421.00,4
+"Downtown","Sports & Outdoors",1243170.15,949702.15,293468.00,5
+"Residential","Toys",649412.03,513198.03,136214.00,1
+"Residential","Electronics",225620.29,122444.29,103176.00,2
+"Residential","Art & Crafts",300228.39,208096.39,92132.00,3
+"Residential","Games",232838.85,164330.85,68508.00,4
+"Residential","Sports & Outdoors",248014.42,187656.42,60358.00,5

@@ -1,0 +1,51 @@
+"store_id","store_name","store_city","store_location","inventory_in_store"
+"31","Maven Toys Ciudad de Mexico 2","Cuidad de Mexico","Airport",12067.85
+"38","Maven Toys Chihuahua 2","Chihuahua","Downtown",11171.26
+"32","Maven Toys Hermosillo 1","Hermosillo","Residential",10896.49
+"42","Maven Toys Hermosillo 3","Hermosillo","Commercial",10777.44
+"49","Maven Toys Culiacan 1","Culiacan","Downtown",10349.62
+"48","Maven Toys Saltillo 2","Saltillo","Commercial",10239.93
+"41","Maven Toys Hermosillo 2","Hermosillo","Downtown",9827.75
+"50","Maven Toys Guanajuato 3","Guanajuato","Residential",9662.59
+"23","Maven Toys Chihuahua 1","Chihuahua","Commercial",9654.96
+"24","Maven Toys Aguascalientes 1","Aguascalientes","Downtown",9255.46
+"18","Maven Toys Merida 1","Merida","Downtown",9238.69
+"17","Maven Toys Toluca 1","Toluca","Downtown",9151.94
+"12","Maven Toys Chetumal 1","Chetumal","Downtown",9145.44
+"46","Maven Toys Guadalajara 4","Guadalajara","Downtown",9092.50
+"34","Maven Toys Villahermosa 1","Villahermosa","Downtown",8983.78
+"6","Maven Toys Mexicali 1","Mexicali","Commercial",8978.21
+"15","Maven Toys Tuxtla Gutierrez 1","Tuxtla Gutierrez","Downtown",8930.26
+"10","Maven Toys Campeche 1","Campeche","Downtown",8863.43
+"35","Maven Toys Chilpancingo 1","Chilpancingo","Downtown",8580.58
+"37","Maven Toys Ciudad de Mexico 3","Cuidad de Mexico","Residential",8407.64
+"22","Maven Toys Guanajuato 2","Guanajuato","Commercial",8357.12
+"44","Maven Toys Puebla 3","Puebla","Residential",8339.88
+"16","Maven Toys San Luis Potosi 1","San Luis Potosi","Downtown",8293.18
+"9","Maven Toys Ciudad de Mexico 1","Cuidad de Mexico","Downtown",8211.21
+"30","Maven Toys Guadalajara 3","Guadalajara","Airport",8064.96
+"7","Maven Toys Monterrey 2","Monterrey","Downtown",8013.42
+"36","Maven Toys Morelia 1","Morelia","Downtown",7989.62
+"3","Maven Toys Guadalajara 2","Guadalajara","Commercial",7833.86
+"11","Maven Toys Cuernavaca 1","Cuernavaca","Downtown",7748.23
+"47","Maven Toys Monterrey 4","Monterrey","Commercial",7747.86
+"26","Maven Toys Campeche 2","Campeche","Commercial",7675.19
+"13","Maven Toys Mexicali 2","Mexicali","Downtown",7660.57
+"2","Maven Toys Monterrey 1","Monterrey","Residential",7549.84
+"45","Maven Toys Ciudad de Mexico 4","Cuidad de Mexico","Commercial",7304.49
+"1","Maven Toys Guadalajara 1","Guadalajara","Residential",7274.37
+"39","Maven Toys Xalapa 2","Xalapa","Downtown",7200.98
+"33","Maven Toys Monterrey 3","Monterrey","Airport",7164.61
+"21","Maven Toys Santiago 1","Santiago","Downtown",7150.16
+"25","Maven Toys Ciudad Victoria 1","Ciudad Victoria","Downtown",7128.54
+"40","Maven Toys Toluca 2","Toluca","Commercial",7010.28
+"8","Maven Toys Pachuca 1","Pachuca","Downtown",6931.52
+"27","Maven Toys Oaxaca 1","Oaxaca","Downtown",6921.21
+"5","Maven Toys La Paz 1","La Paz","Downtown",6903.27
+"19","Maven Toys Puebla 1","Puebla","Commercial",6868.04
+"43","Maven Toys Durango 1","Durango","Downtown",6740.74
+"29","Maven Toys Xalapa 1","Xalapa","Commercial",6229.65
+"4","Maven Toys Saltillo 1","Saltillo","Downtown",6151.63
+"20","Maven Toys Zacatecas 1","Zacatecas","Downtown",5908.20
+"28","Maven Toys Puebla 2","Puebla","Downtown",5858.80
+"14","Maven Toys Guanajuato 1","Guanajuato","Downtown",4733.33

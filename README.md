@@ -115,7 +115,7 @@
 ├── sql/
 │   ├── database_setup.sql                       -- creación de tablas / table creation
 │   └── SQL_Sales_Analisis_Mexican_Toy_Stores.sql -- análisis completo / full analysis
-└── images/                                      -- gráficas exportadas / exported charts
+
 </code></pre>
 <hr />
 <h2 id="6-preparación-de-datos--data-preparation">6. Preparación de datos / Data preparation</h2>

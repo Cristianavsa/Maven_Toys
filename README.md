@@ -280,9 +280,10 @@ pie title Número de ventas por tienda
 <h3 id="consulta-2--utilidad-por-categoría--query-2--profit-by-category">Consulta 2 — Utilidad por categoría / Query 2 — Profit by category</h3>
 <p><strong>ES:</strong> Calcula venta, costo, utilidad y el porcentaje que aporta cada categoría a la utilidad total (<code>SUM() OVER ()</code>).</p>
 <p><strong>EN:</strong> Computes revenue, cost, profit and each category's share of total profit (<code>SUM() OVER ()</code>).</p>
-<pre><code class="language-sql">WITH agg AS (
+<pre><code class="language-sql">
     
    ``` sql
+WITH agg AS (
    SELECT
         p.product_category,
         SUM(s.units * p.product_cost)                       AS total_cost,
@@ -307,6 +308,7 @@ ORDER BY total_profit DESC;
     &quot;Juguetes / Toys (~27%)&quot; : 27
     &quot;Otras categorías / Other categories (~73%)&quot; : 73
 </pre>
+
 ```mermaid
 pie title Aporte de Juguetes a la utilidad total / Toys' share of total profit
     "Juguetes / Toys (~27%)" : 27
@@ -318,9 +320,10 @@ pie title Aporte de Juguetes a la utilidad total / Toys' share of total profit
 <h3 id="consulta-3--categoría-líder-por-tipo-de-ubicación--query-3--top-category-by-store-location">Consulta 3 — Categoría líder por tipo de ubicación / Query 3 — Top category by store location</h3>
 <p><strong>ES:</strong> Para cada tipo de ubicación (<code>Downtown</code>, <code>Residential</code>, <code>Airport</code>, <code>Commercial</code>) identifica la categoría con mayor utilidad usando <code>DENSE_RANK() OVER (PARTITION BY …)</code>.</p>
 <p><strong>EN:</strong> For each location type (<code>Downtown</code>, <code>Residential</code>, <code>Airport</code>, <code>Commercial</code>) it identifies the most profitable category using <code>DENSE_RANK() OVER (PARTITION BY …)</code>.</p>
-<pre><code class="language-sql">WITH agg AS (
+<pre><code class="language-sql">
    
    ``` sql
+WITH agg AS (
    SELECT
         st.store_location,
         p.product_category,
@@ -415,6 +418,7 @@ ORDER BY year, month_number;
     y-axis &quot;Miles MXN / Thousand MXN&quot; 500 --&gt; 950
     bar [747, 723, 884, 828, 825, 808, 828, 661, 658]
 </pre>
+
 ```mermaid
 chart
     title: Ventas mensuales / Monthly sales (miles MXN / thousand MXN)

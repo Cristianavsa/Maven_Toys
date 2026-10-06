@@ -191,9 +191,10 @@ SELECT * FROM duplicates WHERE rn &gt; 1;
 <h3 id="consulta-1--resumen-de-ventas-por-tienda--query-1--store-sales-summary">Consulta 1 — Resumen de ventas por tienda / Query 1 — Store sales summary</h3>
 <p><strong>ES:</strong> Calcula por tienda el número de ventas, máximo, mínimo, promedio, desviación estándar, cuartiles y <strong>coeficiente de variación (CV)</strong>. Sirve para detectar tiendas con ventas atípicas y para decidir si usar promedio o mediana al comparar.</p>
 <p><strong>EN:</strong> Computes per-store number of sales, max, min, average, standard deviation, quartiles and <strong>coefficient of variation (CV)</strong>. It helps detect stores with outlier sales and decide whether to compare using the mean or the median.</p>
-<pre><code class="language-sql">WITH transactions AS (
+<pre><code class="language-sql">
 
    ``` sql    
+WITH transactions AS (
    SELECT
         s.sale_id,
         s.store_id::INT                AS store_id,
@@ -220,6 +221,14 @@ FROM transactions
 GROUP BY store_id, store_name, store_location
 ORDER BY store_id;
 ```
+</code></pre>
+<p><strong>Gráfica / Chart — tiendas con mayor y menor volumen / highest- and lowest-volume stores</strong></p>
+<pre class="mermaid">xychart-beta
+    title &quot;Número de ventas / Number of sales&quot;
+    x-axis [&quot;CDMX 2&quot;, &quot;Campeche 2&quot;, &quot;Toluca 2&quot;]
+    y-axis &quot;Ventas / Sales&quot; 0 --&gt; 32000
+    bar [29024, 12805, 12776]
+</pre>
    
    ```mermaid
 pie title Número de ventas por tienda

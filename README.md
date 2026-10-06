@@ -220,13 +220,6 @@ FROM transactions
 GROUP BY store_id, store_name, store_location
 ORDER BY store_id;
 ```
-</code></pre>
-<p><strong>Gráfica / Chart — tiendas con mayor y menor volumen / highest- and lowest-volume stores</strong></p>
-<pre class="mermaid">xychart-beta
-    title &quot;Número de ventas / Number of sales&quot;
-    x-axis [&quot;CDMX 2&quot;, &quot;Campeche 2&quot;, &quot;Toluca 2&quot;]
-    y-axis &quot;Ventas / Sales&quot; 0 --&gt; 32000
-    bar [29024, 12805, 12776]
    
    ```mermaid
 pie title Número de ventas por tienda
@@ -305,6 +298,11 @@ ORDER BY total_profit DESC;
     &quot;Juguetes / Toys (~27%)&quot; : 27
     &quot;Otras categorías / Other categories (~73%)&quot; : 73
 </pre>
+```mermaid
+pie title Aporte de Juguetes a la utilidad total / Toys' share of total profit
+    "Juguetes / Toys (~27%)" : 27
+    "Otras categorías / Other categories (~73%)" : 73
+```
 <p><strong>ES:</strong> Juguetes aporta ~27% de la utilidad total y es uno de los principales impulsores del desempeño.
 <strong>EN:</strong> Toys contributes ~27% of total profit and is one of the key performance drivers.</p>
 <hr />
@@ -370,9 +368,10 @@ ORDER BY store_location;
 <h3 id="consulta-4--ventas-mensuales-y-variación-mom--query-4--monthly-sales-and-mom-change">Consulta 4 — Ventas mensuales y variación MoM / Query 4 — Monthly sales and MoM change</h3>
 <p><strong>ES:</strong> Calcula las ventas por mes y su variación contra el mes anterior con <code>LAG()</code>.</p>
 <p><strong>EN:</strong> Computes sales per month and the change against the previous month using <code>LAG()</code>.</p>
-<pre><code class="language-sql">WITH monthly AS (
+<pre><code class="language-sql">
   
    ``` sql
+WITH monthly AS (
    SELECT
         c.year,
         c.quarter,
@@ -407,6 +406,16 @@ ORDER BY year, month_number;
     y-axis &quot;Miles MXN / Thousand MXN&quot; 500 --&gt; 950
     bar [747, 723, 884, 828, 825, 808, 828, 661, 658]
 </pre>
+```mermaid
+chart
+    title: Ventas mensuales / Monthly sales (miles MXN / thousand MXN)
+    type: bar
+    x-axis: ["Ene/Jan", "Feb", "Mar", "Abr/Apr", "May", "Jun", "Jul", "Ago/Aug", "Sep"]
+    y-axis: Miles MXN / Thousand MXN
+    series:
+      - title: Ventas mensuales
+        data: [747, 723, 884, 828, 825, 808, 828, 661, 658]
+```
 <p><strong>ES:</strong>
 1. <strong>Pico en marzo:</strong> $883,516 (+22% vs. febrero); consistente con un posible empuje de cierre de trimestre, aunque con tan poca evidencia no se puede confirmar que sea recurrente.
 2. <strong>Meseta en Q2:</strong> abril–junio ($827.7K, $825.3K, $808.3K), variación de ~2.3%.
@@ -419,9 +428,10 @@ ORDER BY year, month_number;
 <h3 id="consulta-5--crecimiento-anual-yoy--query-5--year-over-year-growth">Consulta 5 — Crecimiento anual (YoY) / Query 5 — Year-over-year growth</h3>
 <p><strong>ES:</strong> Compara cada mes con el mismo mes del año anterior (<code>LAG(…, 12)</code>). Requiere más de un año de datos; si algún mes no tiene su par, el resultado es <code>NULL</code>.</p>
 <p><strong>EN:</strong> Compares each month with the same month of the previous year (<code>LAG(…, 12)</code>). It requires more than one year of data; if a month has no counterpart, the result is <code>NULL</code>.</p>
-<pre><code class="language-sql">WITH monthly AS (
+<pre><code class="language-sql">
     
    ```sql
+WITH monthly AS (
    SELECT
         c.year,
         c.month_number,
@@ -480,11 +490,12 @@ ORDER BY year, month_number;
 <h3 id="consulta-6--ingreso-perdido-por-quiebre-de-stock--query-6--revenue-lost-to-stockouts">Consulta 6 — Ingreso perdido por quiebre de stock / Query 6 — Revenue lost to stockouts</h3>
 <p><strong>ES:</strong> Para cada combinación tienda-producto con <code>stock_on_hand = 0</code>, estima el ingreso diario perdido como demanda diaria histórica × precio. La <strong>demanda diaria</strong> se calcula como unidades totales ÷ días del periodo (no como promedio por transacción).</p>
 <p><strong>EN:</strong> For each store-product combination with <code>stock_on_hand = 0</code>, estimates daily lost revenue as historical daily demand × price. <strong>Daily demand</strong> is total units ÷ days in the period (not an average per transaction).</p>
-<pre><code class="language-sql">WITH period AS (
+<pre><code class="language-sql">
    
    ``` sql
+WITH period AS (
    SELECT (MAX(date) - MIN(date) + 1) AS days
-    FROM sales
+   FROM sales
 ),
 demand AS (
     SELECT
@@ -598,6 +609,13 @@ ORDER BY days_of_cover;
     &quot;Normal (3-60 días) / Normal: 1351 (85.0%)&quot; : 1351
     &quot;Sobre-stock (&gt;60 días) / Overstock: 30 (1.9%)&quot; : 30
 </pre>
+
+```mermaid
+pie title Cobertura de inventario / Inventory cover
+    "En riesgo (<3 días) / At risk: 209 (13.1%)" : 209
+    "Normal (3-60 días) / Normal: 1351 (85.0%)" : 1351
+    "Sobre-stock (>60 días) / Overstock: 30 (1.9%)" : 30
+```
 <p><strong>Resultados del cálculo original ⚠️ / Results from the original calculation ⚠️</strong></p>
 <ul>
 <li><strong>Riesgo de quiebre / Stockout risk:</strong> 209 combinaciones (13.1%). El <strong>Producto 28</strong> aparece 26 veces (más del doble que el segundo) y la <strong>Tienda 13</strong> concentra 10 productos en riesgo. / 209 combinations (13.1%). <strong>Product 28</strong> appears 26 times (more than double the runner-up) and <strong>Store 13</strong> concentrates 10 at-risk products.</li>

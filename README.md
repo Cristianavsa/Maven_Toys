@@ -227,6 +227,13 @@ ORDER BY store_id;
     x-axis [&quot;CDMX 2&quot;, &quot;Campeche 2&quot;, &quot;Toluca 2&quot;]
     y-axis &quot;Ventas / Sales&quot; 0 --&gt; 32000
     bar [29024, 12805, 12776]
+   
+   ```mermaid
+pie title Número de ventas por tienda
+    "CDMX 2" : 29024
+    "Campeche 2" : 12805
+    "Toluca 2" : 12776
+```
 </pre>
 <p><img alt="Distribución de ventas por tienda" src="images/store_sales_distribution.png" />
 <em>Distribución de la venta por tienda (mín, Q1, mediana, Q3, máx) / Sale distribution per store (min, Q1, median, Q3, max).</em></p>

@@ -194,6 +194,8 @@ SET month_name   = TRIM(TO_CHAR(date, 'Month')),
 <p><strong>ES:</strong> Se revisan nulos en todas las columnas de las 5 tablas y duplicados por clave natural (<code>sale_id</code>, <code>product_id</code>, <code>store_id</code>, <code>date</code> y la pareja <code>store_id + product_id</code> en <code>inventory</code>). <strong>Resultado: sin nulos ni duplicados.</strong> Abajo se muestra el patrón con <code>sales</code>; el resto de tablas sigue la misma lógica (ver <code>/sql</code>).</p>
 <p><strong>EN:</strong> Nulls are checked across all columns of the 5 tables, and duplicates by natural key (<code>sale_id</code>, <code>product_id</code>, <code>store_id</code>, <code>date</code>, and the <code>store_id + product_id</code> pair in <code>inventory</code>). <strong>Result: no nulls and no duplicates.</strong> The pattern is shown below with <code>sales</code>; the other tables follow the same logic (see <code>/sql</code>).</p>
 <pre><code class="language-sql">-- Nulos / Nulls
+
+``` sql
 SELECT sale_id, date, store_id, product_id, units
 FROM sales
 WHERE sale_id IS NULL OR date IS NULL OR store_id IS NULL
@@ -206,6 +208,7 @@ WITH duplicates AS (
     FROM sales
 )
 SELECT * FROM duplicates WHERE rn &gt; 1;
+```
 </code></pre>
 <hr />
 <h2 id="7-análisis-consulta-por-consulta--analysis-query-by-query">7. Análisis, consulta por consulta / Analysis, query by query</h2>
@@ -219,7 +222,9 @@ SELECT * FROM duplicates WHERE rn &gt; 1;
 <p><strong>ES:</strong> Calcula por tienda el número de ventas, máximo, mínimo, promedio, desviación estándar, cuartiles y <strong>coeficiente de variación (CV)</strong>. Sirve para detectar tiendas con ventas atípicas y para decidir si usar promedio o mediana al comparar.</p>
 <p><strong>EN:</strong> Computes per-store number of sales, max, min, average, standard deviation, quartiles and <strong>coefficient of variation (CV)</strong>. It helps detect stores with outlier sales and decide whether to compare using the mean or the median.</p>
 <pre><code class="language-sql">WITH transactions AS (
-    SELECT
+
+   ``` sql    
+   SELECT
         s.sale_id,
         s.store_id::INT                AS store_id,
         st.store_name,
@@ -244,6 +249,7 @@ SELECT
 FROM transactions
 GROUP BY store_id, store_name, store_location
 ORDER BY store_id;
+```
 </code></pre>
 <p><strong>Gráfica / Chart — tiendas con mayor y menor volumen / highest- and lowest-volume stores</strong></p>
 <pre class="mermaid">xychart-beta
@@ -296,7 +302,9 @@ ORDER BY store_id;
 <p><strong>ES:</strong> Calcula venta, costo, utilidad y el porcentaje que aporta cada categoría a la utilidad total (<code>SUM() OVER ()</code>).</p>
 <p><strong>EN:</strong> Computes revenue, cost, profit and each category's share of total profit (<code>SUM() OVER ()</code>).</p>
 <pre><code class="language-sql">WITH agg AS (
-    SELECT
+    
+   ``` sql
+   SELECT
         p.product_category,
         SUM(s.units * p.product_cost)                       AS total_cost,
         SUM(s.units * p.product_price)                      AS total_sale,
@@ -313,6 +321,7 @@ SELECT
     ROUND(100 * total_profit / SUM(total_profit) OVER (), 1) AS pct_of_total_profit
 FROM agg
 ORDER BY total_profit DESC;
+```
 </code></pre>
 <p><strong>Gráfica / Chart</strong></p>
 <pre class="mermaid">pie title Aporte de Juguetes a la utilidad total / Toys' share of total profit
@@ -326,7 +335,9 @@ ORDER BY total_profit DESC;
 <p><strong>ES:</strong> Para cada tipo de ubicación (<code>Downtown</code>, <code>Residential</code>, <code>Airport</code>, <code>Commercial</code>) identifica la categoría con mayor utilidad usando <code>DENSE_RANK() OVER (PARTITION BY …)</code>.</p>
 <p><strong>EN:</strong> For each location type (<code>Downtown</code>, <code>Residential</code>, <code>Airport</code>, <code>Commercial</code>) it identifies the most profitable category using <code>DENSE_RANK() OVER (PARTITION BY …)</code>.</p>
 <pre><code class="language-sql">WITH agg AS (
-    SELECT
+   
+   ``` sql
+   SELECT
         st.store_location,
         p.product_category,
         SUM(s.units * p.product_cost)                     AS total_cost,
@@ -346,6 +357,8 @@ SELECT *
 FROM ranked
 WHERE ranking = 1
 ORDER BY store_location;
+```
+
 </code></pre>
 <p><strong>Resultado / Result</strong></p>
 <table>
@@ -381,7 +394,9 @@ ORDER BY store_location;
 <p><strong>ES:</strong> Calcula las ventas por mes y su variación contra el mes anterior con <code>LAG()</code>.</p>
 <p><strong>EN:</strong> Computes sales per month and the change against the previous month using <code>LAG()</code>.</p>
 <pre><code class="language-sql">WITH monthly AS (
-    SELECT
+  
+   ``` sql
+   SELECT
         c.year,
         c.quarter,
         c.month_number,
@@ -406,6 +421,7 @@ SELECT
     ) AS mom_pct_change
 FROM monthly
 ORDER BY year, month_number;
+```
 </code></pre>
 <p><strong>Gráfica / Chart — ventas mensuales (miles de MXN; julio aproximado) / monthly sales (thousands of MXN; July approximate)</strong></p>
 <pre class="mermaid">xychart-beta
@@ -427,7 +443,9 @@ ORDER BY year, month_number;
 <p><strong>ES:</strong> Compara cada mes con el mismo mes del año anterior (<code>LAG(…, 12)</code>). Requiere más de un año de datos; si algún mes no tiene su par, el resultado es <code>NULL</code>.</p>
 <p><strong>EN:</strong> Compares each month with the same month of the previous year (<code>LAG(…, 12)</code>). It requires more than one year of data; if a month has no counterpart, the result is <code>NULL</code>.</p>
 <pre><code class="language-sql">WITH monthly AS (
-    SELECT
+    
+   ```sql
+   SELECT
         c.year,
         c.month_number,
         c.month_name,
@@ -449,6 +467,7 @@ SELECT
     ) AS yoy_pct_change
 FROM monthly
 ORDER BY year, month_number;
+```
 </code></pre>
 <p><img alt="Crecimiento YoY" src="images/yoy_growth.png" />
 <em>Crecimiento interanual por mes / Year-over-year growth by month.</em></p>
@@ -485,7 +504,9 @@ ORDER BY year, month_number;
 <p><strong>ES:</strong> Para cada combinación tienda-producto con <code>stock_on_hand = 0</code>, estima el ingreso diario perdido como demanda diaria histórica × precio. La <strong>demanda diaria</strong> se calcula como unidades totales ÷ días del periodo (no como promedio por transacción).</p>
 <p><strong>EN:</strong> For each store-product combination with <code>stock_on_hand = 0</code>, estimates daily lost revenue as historical daily demand × price. <strong>Daily demand</strong> is total units ÷ days in the period (not an average per transaction).</p>
 <pre><code class="language-sql">WITH period AS (
-    SELECT (MAX(date) - MIN(date) + 1) AS days
+   
+   ``` sql
+   SELECT (MAX(date) - MIN(date) + 1) AS days
     FROM sales
 ),
 demand AS (
@@ -507,6 +528,7 @@ JOIN demand   d ON i.store_id   = d.store_id AND i.product_id = d.product_id
 JOIN products p ON i.product_id = p.product_id
 WHERE i.stock_on_hand = 0
 ORDER BY est_lost_revenue_per_day DESC;
+```
 </code></pre>
 <p><img alt="Ingreso perdido por quiebre" src="images/lost_revenue_top10.png" />
 <em>Top 10 combinaciones tienda-producto por ingreso diario perdido / Top 10 store-product combinations by daily lost revenue.</em></p>
@@ -539,7 +561,10 @@ ORDER BY est_lost_revenue_per_day DESC;
 <h3 id="consulta-7--valor-del-inventario-por-tienda--query-7--inventory-value-per-store">Consulta 7 — Valor del inventario por tienda / Query 7 — Inventory value per store</h3>
 <p><strong>ES:</strong> Calcula el capital inmovilizado en inventario por tienda (<code>stock_on_hand × product_price</code>), de mayor a menor.</p>
 <p><strong>EN:</strong> Computes the capital tied up in inventory per store (<code>stock_on_hand × product_price</code>), from highest to lowest.</p>
-<pre><code class="language-sql">SELECT
+<pre><code class="language-sql">
+   
+   ``` sql 
+   SELECT
     i.store_id,
     s.store_name,
     s.store_city,
@@ -550,6 +575,7 @@ LEFT JOIN products p ON i.product_id = p.product_id
 LEFT JOIN stores   s ON i.store_id   = s.store_id
 GROUP BY i.store_id, s.store_name, s.store_city, s.store_location
 ORDER BY inventory_value DESC;
+```
 </code></pre>
 <p><img alt="Valor de inventario por tienda" src="images/inventory_value_by_store.png" />
 <em>Valor del inventario por tienda / Inventory value per store.</em></p>
@@ -557,7 +583,10 @@ ORDER BY inventory_value DESC;
 <h3 id="consulta-8--días-de-cobertura-de-inventario--query-8--days-of-inventory-cover">Consulta 8 — Días de cobertura de inventario / Query 8 — Days of inventory cover</h3>
 <p><strong>ES:</strong> Calcula cuántos días de venta cubre el stock actual de cada combinación tienda-producto (<code>stock_on_hand ÷ demanda diaria</code>) y la clasifica: <em>Stockout</em> (0), <em>En riesgo</em> (&lt; 3 días), <em>Sobre-stock</em> (&gt; 60 días) o <em>Normal</em>.</p>
 <p><strong>EN:</strong> Computes how many days of sales the current stock of each store-product combination covers (<code>stock_on_hand ÷ daily demand</code>) and classifies it: <em>Stockout</em> (0), <em>At risk</em> (&lt; 3 days), <em>Overstock</em> (&gt; 60 days) or <em>Normal</em>.</p>
-<pre><code class="language-sql">WITH period AS (
+<pre><code class="language-sql">
+   
+   ``` sql
+   WITH period AS (
     SELECT (MAX(date) - MIN(date) + 1) AS days
     FROM sales
 ),
@@ -584,6 +613,7 @@ SELECT
 FROM inventory i
 JOIN demand d ON i.store_id = d.store_id AND i.product_id = d.product_id
 ORDER BY days_of_cover;
+```
 </code></pre>
 <p><strong>Gráfica / Chart ⚠️ — 1,590 combinaciones tienda-producto / store-product combinations (cálculo original / original calculation)</strong></p>
 <pre class="mermaid">pie title Cobertura de inventario / Inventory cover

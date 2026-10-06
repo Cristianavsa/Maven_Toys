@@ -153,6 +153,7 @@ em { color:var(--muted); }
 <p><strong>ES:</strong> Los datos se cargan en bruto (fechas y montos con <code>$</code> y <code>,</code> como <code>TEXT</code>) y se convierten con <code>ALTER TABLE … ALTER COLUMN … TYPE … USING</code>. Un <code>UPDATE</code> por sí solo reescribe el valor pero <strong>no cambia el tipo</strong> de la columna; por eso se usa <code>ALTER</code>.</p>
 <p><strong>EN:</strong> Data is loaded raw (dates and amounts with <code>$</code> and <code>,</code> as <code>TEXT</code>) and converted with <code>ALTER TABLE … ALTER COLUMN … TYPE … USING</code>. A plain <code>UPDATE</code> rewrites the value but <strong>does not change the column type</strong>, which is why <code>ALTER</code> is used.</p>
 <pre><code class="language-sql">-- Opcional: interpretación de fechas MM/DD/YYYY en la sesión
+
 ``` sql
 -- Optional: MM/DD/YYYY date interpretation for the session
 ALTER DATABASE &quot;Mexico Toy Sales&quot; SET DateStyle = 'ISO, MDY';

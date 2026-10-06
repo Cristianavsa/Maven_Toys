@@ -1,34 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Maven Toys México — Análisis SQL / SQL Analysis</title>
-<style>
-:root { --bg:#fff; --fg:#1f2328; --muted:#59636e; --line:#d1d9e0; --code:#f6f8fa; --accent:#0a7ea4; }
-@media (prefers-color-scheme: dark) { :root { --bg:#0d1117; --fg:#e6edf3; --muted:#9198a1; --line:#30363d; --code:#161b22; --accent:#4fb3d9; } }
-* { box-sizing:border-box; }
-body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.6 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
-main { max-width:920px; margin:0 auto; padding:32px 20px 64px; }
-h1,h2,h3 { line-height:1.25; }
-h1 { font-size:1.7rem; margin:0 0 .3em; }
-h2 { font-size:1.4rem; margin-top:2.2em; padding-bottom:.3em; border-bottom:1px solid var(--line); }
-h3 { font-size:1.15rem; margin-top:1.8em; color:var(--accent); }
-a { color:var(--accent); }
-hr { border:0; border-top:1px solid var(--line); margin:2em 0; }
-pre { background:var(--code); border:1px solid var(--line); border-radius:6px; padding:14px 16px; overflow-x:auto; font-size:.85rem; line-height:1.5; }
-code { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; }
-:not(pre) > code { background:var(--code); padding:.15em .4em; border-radius:4px; font-size:.88em; }
-pre.mermaid { background:transparent; border:0; text-align:center; font-family:inherit; }
-table { display:block; max-width:100%; overflow-x:auto; border-collapse:collapse; margin:1em 0; }
-th,td { border:1px solid var(--line); padding:6px 12px; text-align:left; vertical-align:top; }
-th { background:var(--code); }
-blockquote { margin:1em 0; padding:.2em 1em; border-left:4px solid var(--accent); background:var(--code); color:var(--muted); }
-img { max-width:100%; height:auto; }
-em { color:var(--muted); }
-@media print { pre { white-space:pre-wrap; } }
-</style>
-</head>
+
 <body>
 <main>
 <h1 id="maven-toys-méxico--análisis-sql-de-ventas-rentabilidad-e-inventario">Maven Toys México — Análisis SQL de ventas, rentabilidad e inventario</h1>

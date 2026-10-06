@@ -420,14 +420,16 @@ ORDER BY year, month_number;
 </pre>
 
 ```mermaid
-chart
-    title: Ventas mensuales / Monthly sales (miles MXN / thousand MXN)
-    type: bar
-    x-axis: ["Ene/Jan", "Feb", "Mar", "Abr/Apr", "May", "Jun", "Jul", "Ago/Aug", "Sep"]
-    y-axis: Miles MXN / Thousand MXN
-    series:
-      - title: Ventas mensuales
-        data: [747, 723, 884, 828, 825, 808, 828, 661, 658]
+pie title Ventas mensuales / Monthly sales (miles MXN / thousand MXN)
+    "Ene/Jan" : 747
+    "Feb" : 723
+    "Mar" : 884
+    "Abr/Apr" : 828
+    "May" : 825
+    "Jun" : 808
+    "Jul" : 828
+    "Ago/Aug" : 661
+    "Sep" : 658
 ```
 <p><strong>ES:</strong>
 1. <strong>Pico en marzo:</strong> $883,516 (+22% vs. febrero); consistente con un posible empuje de cierre de trimestre, aunque con tan poca evidencia no se puede confirmar que sea recurrente.

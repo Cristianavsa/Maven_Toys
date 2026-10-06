@@ -153,10 +153,12 @@ em { color:var(--muted); }
 <p><strong>ES:</strong> Los datos se cargan en bruto (fechas y montos con <code>$</code> y <code>,</code> como <code>TEXT</code>) y se convierten con <code>ALTER TABLE … ALTER COLUMN … TYPE … USING</code>. Un <code>UPDATE</code> por sí solo reescribe el valor pero <strong>no cambia el tipo</strong> de la columna; por eso se usa <code>ALTER</code>.</p>
 <p><strong>EN:</strong> Data is loaded raw (dates and amounts with <code>$</code> and <code>,</code> as <code>TEXT</code>) and converted with <code>ALTER TABLE … ALTER COLUMN … TYPE … USING</code>. A plain <code>UPDATE</code> rewrites the value but <strong>does not change the column type</strong>, which is why <code>ALTER</code> is used.</p>
 <pre><code class="language-sql">-- Opcional: interpretación de fechas MM/DD/YYYY en la sesión
+``` sql
 -- Optional: MM/DD/YYYY date interpretation for the session
 ALTER DATABASE &quot;Mexico Toy Sales&quot; SET DateStyle = 'ISO, MDY';
 
 -- Fechas / Dates
+
 ALTER TABLE calendar
     ALTER COLUMN date TYPE DATE USING TO_DATE(date, 'MM/DD/YYYY');
 
@@ -165,12 +167,14 @@ ALTER TABLE sales
 
 -- Moneda: quitar &quot;$&quot; y &quot;,&quot; y convertir a DECIMAL
 -- Currency: strip &quot;$&quot; and &quot;,&quot; and convert to DECIMAL
+
 ALTER TABLE products
     ALTER COLUMN product_cost  TYPE DECIMAL(10,2)
         USING REPLACE(REPLACE(TRIM(product_cost),  '$', ''), ',', '')::DECIMAL,
     ALTER COLUMN product_price TYPE DECIMAL(10,2)
         USING REPLACE(REPLACE(TRIM(product_price), '$', ''), ',', '')::DECIMAL;
-
+```
+``` sql
 -- Columnas de calendario / Calendar columns
 ALTER TABLE calendar
     ADD COLUMN month_name   TEXT,
@@ -183,6 +187,7 @@ SET month_name   = TRIM(TO_CHAR(date, 'Month')),
     month_number = EXTRACT(MONTH   FROM date),
     quarter      = EXTRACT(QUARTER FROM date),
     year         = EXTRACT(YEAR    FROM date);
+```
 </code></pre>
 <h3 id="62-calidad-de-datos-nulos-y-duplicados--data-quality-nulls-and-duplicates">6.2 Calidad de datos: nulos y duplicados / Data quality: nulls and duplicates</h3>
 <p><strong>ES:</strong> Se revisan nulos en todas las columnas de las 5 tablas y duplicados por clave natural (<code>sale_id</code>, <code>product_id</code>, <code>store_id</code>, <code>date</code> y la pareja <code>store_id + product_id</code> en <code>inventory</code>). <strong>Resultado: sin nulos ni duplicados.</strong> Abajo se muestra el patrón con <code>sales</code>; el resto de tablas sigue la misma lógica (ver <code>/sql</code>).</p>
